@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia sobre Laurita Fernández</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+        
+        body {
+            background: linear-gradient(135deg, #004080, #00aaff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-y: auto;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 3rem;
+            color: #00ffff;
+        }
+
+        .question {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .options button {
+            display: block;
+            background: white;
+            color: black;
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 200px;
+            text-align: center;
+        }
+
+        .options button.correct {
+            background: green;
+            color: white;
+        }
+
+        .options button.wrong {
+            background: red;
+            color: white;
+        }
+
+        .result {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #00ffff;
+            color: #002244;
+            padding: 15px 30px;
+            margin: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            font-size: 1.4rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trivia sobre Laurita Fernández</h1>
+    <div id="quiz"></div>
+    <div class="result" id="result"></div>
+    <a href="index.html" class="button">Volver al Inicio</a>
+
+    <script>
+        const questions = [
+            { q: "¿En qué año nació Laurita Fernández?", options: ["1988", "1990", "1991", "1992"], answer: "1991" },
+            { q: "¿En qué programa de baile se hizo famosa?", options: ["Bailando por un sueño", "ShowMatch", "Danza Total", "Super Bailando"], answer: "Bailando por un sueño" },
+            { q: "¿En qué obra de teatro protagonizó junto a Nico Cabré?", options: ["Sugar", "Rent", "Chicago", "Cabaret"], answer: "Sugar" },
+            { q: "¿Cuál es su profesión además de bailarina?", options: ["Actriz", "Cantante", "Modelo", "Influencer"], answer: "Actriz" },
+            { q: "¿En qué canal condujo un programa en 2022?", options: ["El Trece", "Telefe", "América TV", "Canal 9"], answer: "El Trece" },
+            { q: "¿Qué talento además del baile ha mostrado en televisión?", options: ["Cantar", "Pintar", "Cocinar", "Actuar"], answer: "Cantar" },
+            { q: "¿Cómo se llama su ex pareja con la que compartió escenario?", options: ["Nicolás Cabré", "Federico Hoppe", "Fede Bal", "Pedro Alfonso"], answer: "Fede Bal" },
+            { q: "¿Cuál de estos musicales NO protagonizó?", options: ["Sugar", "Heathers", "Matilda", "Chicago"], answer: "Matilda" },
+            { q: "¿En qué reality show participó como jurado?", options: ["Bailando por un sueño", "La Voz Argentina", "Got Talent Argentina", "MasterChef Celebrity"], answer: "Bailando por un sueño" },
+            { q: "¿Cuál es su red social más usada?", options: ["Instagram", "Twitter", "TikTok", "Facebook"], answer: "Instagram" }
+        ];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        const quizContainer = document.getElementById("quiz");
+        const resultContainer = document.getElementById("result");
+
+        function showQuestion() {
+            quizContainer.innerHTML = "";
+            const question = questions[currentQuestion];
+            
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+            questionDiv.innerHTML = `<p>${currentQuestion + 1}. ${question.q}</p>`;
+            
+            const optionsDiv = document.createElement("div");
+            optionsDiv.classList.add("options");
+            
+            question.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(button, question.answer);
+                optionsDiv.appendChild(button);
+            });
+            
+            quizContainer.appendChild(questionDiv);
+            quizContainer.appendChild(optionsDiv);
+        }
+
+        function checkAnswer(button, correctAnswer) {
+            if (button.textContent === correctAnswer) {
+                button.classList.add("correct");
+                correctAnswers++;
+            } else {
+                button.classList.add("wrong");
+            }
+            setTimeout(nextQuestion, 1000);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            quizContainer.innerHTML = "";
+            resultContainer.innerHTML = `<p>Respondiste correctamente ${correctAnswers} de ${questions.length} preguntas.</p>`;
+        }
+
+        showQuestion();
+    </script>
+</body>
+</html>

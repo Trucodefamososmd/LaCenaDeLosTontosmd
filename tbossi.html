@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia sobre Martín Bossi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+        
+        body {
+            background: linear-gradient(135deg, #004080, #00aaff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-y: auto;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 3rem;
+            color: #00ffff;
+        }
+
+        .question {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .options button {
+            display: block;
+            background: white;
+            color: black;
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 200px;
+            text-align: center;
+        }
+
+        .options button.correct {
+            background: green;
+            color: white;
+        }
+
+        .options button.wrong {
+            background: red;
+            color: white;
+        }
+
+        .result {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #00ffff;
+            color: #002244;
+            padding: 15px 30px;
+            margin: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            font-size: 1.4rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trivia sobre Martín Bossi</h1>
+    <div id="quiz"></div>
+    <div class="result" id="result"></div>
+    <a href="index.html" class="button">Volver al Inicio</a>
+
+    <script>
+        const questions = [
+            { q: "¿En qué año nació Martín Bossi?", options: ["1974", "1976", "1978", "1980"], answer: "1974" },
+            { q: "¿Cuál es su especialidad en el espectáculo?", options: ["Magia", "Baile", "Imitaciones", "Canto"], answer: "Imitaciones" },
+            { q: "¿En qué programa de TV se hizo famoso?", options: ["ShowMatch", "Videomatch", "Bailando por un Sueño", "CQC"], answer: "ShowMatch" },
+            { q: "¿En qué obra teatral protagonizó en 2023?", options: ["Kinky Boots", "Bossi Live Comedy", "El Joven Frankenstein", "Tootsie"], answer: "Bossi Live Comedy" },
+            { q: "¿A qué famoso ha imitado recurrentemente?", options: ["Diego Maradona", "Marcelo Tinelli", "Ricardo Darín", "Luis Miguel"], answer: "Diego Maradona" },
+            { q: "¿Qué género musical ha interpretado en sus shows?", options: ["Tango", "Rock", "Pop", "Folklore"], answer: "Tango" },
+            { q: "¿En qué plataforma estrenó un show en 2021?", options: ["Netflix", "Amazon Prime", "Disney+", "YouTube"], answer: "Amazon Prime" },
+            { q: "¿En qué provincia nació Martín Bossi?", options: ["Buenos Aires", "Córdoba", "Santa Fe", "Mendoza"], answer: "Buenos Aires" },
+            { q: "¿Cómo se llamó su primer unipersonal teatral?", options: ["Bossi Big Bang Show", "Bossi Master Show", "Bossi Live", "El Show de Bossi"], answer: "Bossi Big Bang Show" },
+            { q: "¿Con qué conductor ha trabajado más?", options: ["Tinelli", "Susana Giménez", "Mirtha Legrand", "Marley"], answer: "Tinelli" }
+        ];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        const quizContainer = document.getElementById("quiz");
+        const resultContainer = document.getElementById("result");
+
+        function showQuestion() {
+            quizContainer.innerHTML = "";
+            const question = questions[currentQuestion];
+            
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+            questionDiv.innerHTML = `<p>${currentQuestion + 1}. ${question.q}</p>`;
+            
+            const optionsDiv = document.createElement("div");
+            optionsDiv.classList.add("options");
+            
+            question.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(button, question.answer);
+                optionsDiv.appendChild(button);
+            });
+            
+            quizContainer.appendChild(questionDiv);
+            quizContainer.appendChild(optionsDiv);
+        }
+
+        function checkAnswer(button, correctAnswer) {
+            if (button.textContent === correctAnswer) {
+                button.classList.add("correct");
+                correctAnswers++;
+            } else {
+                button.classList.add("wrong");
+            }
+            setTimeout(nextQuestion, 1000);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            quizContainer.innerHTML = "";
+            resultContainer.innerHTML = `<p>Respondiste correctamente ${correctAnswers} de ${questions.length} preguntas.</p>`;
+        }
+
+        showQuestion();
+    </script>
+</body>
+</html>

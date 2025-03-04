@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mike Amigorena</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+        
+        body {
+            background: linear-gradient(135deg, #004080, #00aaff);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-y: auto;
+            position: relative;
+            text-align: center;
+            color: white;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 4rem;
+            text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+
+        .image {
+            width: 80%;
+            max-width: 500px;
+            margin: 20px 0;
+        }
+
+        .button {
+            display: inline-block;
+            background: #00ffff;
+            color: #002244;
+            padding: 15px 30px;
+            margin: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .button:hover {
+            background: #ffdb4d;
+            transform: scale(1.05);
+        }
+
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: rise 10s infinite ease-in-out;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-120vh) scale(0.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bubbles">
+        <div class="bubble" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="bubble" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="bubble" style="left: 50%; animation-delay: 4s;"></div>
+        <div class="bubble" style="left: 70%; animation-delay: 6s;"></div>
+        <div class="bubble" style="left: 90%; animation-delay: 8s;"></div>
+    </div>
+    
+    <h1>Mike Amigorena</h1>
+    <img src="mike.jpg" alt="Mike Amigorena" class="image">
+    
+    <a href="tmike.html" class="button">Trivia</a>
+    <a href="index.html" class="button">Volver al Inicio</a>
+</body>
+</html>

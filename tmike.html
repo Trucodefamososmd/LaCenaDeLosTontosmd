@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia sobre Mike Amigorena</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+        
+        body {
+            background: linear-gradient(135deg, #004080, #00aaff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-y: auto;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 3rem;
+            color: #00ffff;
+        }
+
+        .question {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .options button {
+            display: block;
+            background: white;
+            color: black;
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 200px;
+            text-align: center;
+        }
+
+        .options button.correct {
+            background: green;
+            color: white;
+        }
+
+        .options button.wrong {
+            background: red;
+            color: white;
+        }
+
+        .result {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #00ffff;
+            color: #002244;
+            padding: 15px 30px;
+            margin: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            font-size: 1.4rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trivia sobre Mike Amigorena</h1>
+    <div id="quiz"></div>
+    <div class="result" id="result"></div>
+    <a href="index.html" class="button">Volver al Inicio</a>
+
+    <script>
+        const questions = [
+            { q: "¿En qué año nació Mike Amigorena?", options: ["1971", "1972", "1973", "1975"], answer: "1972" },
+            { q: "¿Cuál es su nombre completo?", options: ["Ricardo Mike Amigorena", "Michael Amigorena", "Cristian Mike Amigorena", "Pablo Mike Amigorena"], answer: "Cristian Mike Amigorena" },
+            { q: "¿En qué serie se hizo famoso?", options: ["Los Simuladores", "Graduados", "Los Exitosos Pells", "El Marginal"], answer: "Los Exitosos Pells" },
+            { q: "¿Qué instrumento toca?", options: ["Guitarra", "Piano", "Batería", "Bajo"], answer: "Bajo" },
+            { q: "¿En qué banda de música participó?", options: ["Ambulancia", "Babasónicos", "Los Tipitos", "Nada Personal"], answer: "Ambulancia" },
+            { q: "¿En qué género actúa además de la televisión?", options: ["Teatro", "Doblaje", "Animación", "Cine"], answer: "Teatro" },
+            { q: "¿Cuál es su color de pelo natural?", options: ["Rubio", "Castaño", "Negro", "Pelirrojo"], answer: "Castaño" },
+            { q: "¿En qué película argentina trabajó?", options: ["El Secreto de sus Ojos", "Kóblic", "Papeles en el viento", "Relatos Salvajes"], answer: "Papeles en el viento" },
+            { q: "¿En qué año debutó en televisión?", options: ["1995", "1998", "2001", "2005"], answer: "1998" },
+            { q: "¿Cuál es su red social más activa?", options: ["Instagram", "Facebook", "TikTok", "Twitter"], answer: "Instagram" }
+        ];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        const quizContainer = document.getElementById("quiz");
+        const resultContainer = document.getElementById("result");
+
+        function showQuestion() {
+            quizContainer.innerHTML = "";
+            const question = questions[currentQuestion];
+            
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+            questionDiv.innerHTML = `<p>${currentQuestion + 1}. ${question.q}</p>`;
+            
+            const optionsDiv = document.createElement("div");
+            optionsDiv.classList.add("options");
+            
+            question.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(button, question.answer);
+                optionsDiv.appendChild(button);
+            });
+            
+            quizContainer.appendChild(questionDiv);
+            quizContainer.appendChild(optionsDiv);
+        }
+
+        function checkAnswer(button, correctAnswer) {
+            if (button.textContent === correctAnswer) {
+                button.classList.add("correct");
+                correctAnswers++;
+            } else {
+                button.classList.add("wrong");
+            }
+            setTimeout(nextQuestion, 1000);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            quizContainer.innerHTML = "";
+            resultContainer.innerHTML = `<p>Respondiste correctamente ${correctAnswers} de ${questions.length} preguntas.</p>`;
+        }
+
+        showQuestion();
+    </script>
+</body>
+</html>
